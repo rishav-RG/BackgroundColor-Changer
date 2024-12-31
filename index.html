@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BG Color Change</title>
+   
+    <style>
+       
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    height: 100vh;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+
+    text-align: center;
+    padding: 30px;
+    background: whitesmoke;
+    border-radius: 20px;
+    box-shadow: 1px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.heading {
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    color: #333;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.button {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid black;
+    transition: transform 0.2s ease;
+}
+
+.button:hover {
+    transform: scale(1.1);
+}
+
+#yellow {
+    background-color: yellow;
+}
+
+#red {
+    background-color: red;
+}
+
+#green {
+    background-color: green;
+}
+
+#orange {
+    background-color: orange;
+}
+
+.info {
+    font-size: 1rem;
+    color: #555;
+    margin-top: 20px;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="heading">Background Color Change</h1>
+        <div class="buttons">
+            <span class="button" id="yellow"></span>
+            <span class="button" id="red"></span>
+            <span class="button" id="green"></span>
+            <span class="button" id="orange"></span>
+        </div>
+        <div class="info">
+            Pick one of the colors, and the background will change to that color!
+        </div>
+        <br>
+        <span><button id="continousColor">Change color/sec</button> <button id="stop">Stop</button></span>
+    </div>
+</body>
+<script>
+    const body = document.querySelector('body');
+const buttons = document.querySelectorAll('.button');
+buttons.forEach(function(col){
+    col.addEventListener('click',function(e){
+        body.style.backgroundColor = e.target.id;
+    })
+})
+
+const randomCol = function(){
+    const hexRange = '0123456789ABCDEF'
+    let color = '#'
+    for(let i=0;i<6;i++){
+       let randomhex = hexRange[Math.floor(Math.random()*16)];
+       color+= randomhex
+    }
+    body.style.backgroundColor = color;
+}
+const continousCol = document.querySelector('#continousColor')
+let intervalId;
+continousCol.addEventListener('click',function(){
+   if(!intervalId){
+    intervalId = setInterval(randomCol,1000)
+   } 
+
+   
+})
+const stopCol = document.querySelector('#stop')
+stopCol.addEventListener('click',function(){
+     clearInterval(intervalId)
+     intervalId = null
+})
+</script>
+</html>
